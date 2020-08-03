@@ -1,0 +1,106 @@
+<%- include('../header'); %>
+<%- getHeadTitle('<i class="fas fa-photo-video"></i> Ortam Dosyaları') %>
+
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+
+
+
+
+<section class="col-md-9">
+
+<table class="table table-bordered table-hover table-striped resultListTable">
+
+    <thead>
+        <tr>
+            <th width="64"></th>
+            <th>Dosya</th>
+            <th width="120">Tür</th>
+            <th width="150">Tarih</th>
+        </tr>
+    </thead>
+        <% items.forEach((item, index) => { %>
+        <tr id="item-tr-<%= item.media_id %>">
+            <td>
+                <% if( item.media_type.indexOf('image') >= 0 ){ %>
+                    <img src="<%= getUrlUpload(item.media_file) %>" class="img-fluid"/>
+                <% } %>
+            </td>
+            <td>
+                <strong><%= item.media_title %></strong>
+                <ul class="sub-links-list">
+                    <li><a class="text-dark" href="#" onclick="copy2Clipboard('<%= getUrlUpload(item.media_file) %>');"><i class="fas fa-link"></i> Url Kopyala</a></li>
+                    <li><a class="text-success" href="<%= getUrlUpload(item.media_file) %>" target="_blank"><i class="far fa-eye"></i> Görüntüle</a></li>
+                    <li><a class="text-primary" href="/admin/media/<%= item.media_id %>/edit"><i class="fas fa-edit"></i> Düzenle</a></li>
+                    <li><a class="text-danger" href="#" onclick="deleteSweet('<%= item.media_title %>', '<%= item.media_id %>', '/admin/media/ajax/delete/'+<%= item.media_id %>);"><i class="fas fa-trash-alt"></i> Sil</a></li>
+                </ul>
+            </td>
+            <td><%= item.media_type %></td>
+            <td><span><%= item.media_create.toDateString() %></span></td>
+        </tr>
+        <% }); %>
+    <tbody>
+
+    </tbody>
+
+</table>
+
+</section>
+
+
+<%
+    let title = '';
+    let description = '';
+    let tags = '';
+    let file = null;
+    let action = '/admin/media/upload';
+    let button = '<button class="btn btn-primary btn-sm btn-block"><i class="fas fa-upload"></i> Yükle</button>';
+    if(typeof media != 'undefined'){
+        title = media.media_title;
+        description = media.media_description;
+        tags = media.media_tags;
+        file = media.media_file;
+        action = '/admin/media/:id/update'.replace(':id', media.media_id);
+        button = `<div class="row">
+            <div class="col-6 p-0 pr-1"><button class="btn btn-success btn-sm btn-block"><i class="fas fa-save"></i> Güncelle</button>'</div>
+            <div class="col-6 p-0 pl-1"><a href="/admin/media/list" class="btn btn-danger btn-sm btn-block"><i class="fas fa-chevron-left"></i> Vazgeç</a>'</div>
+        </div>`;
+    }
+%>
+
+
+<section class="col-md-3">
+    <form action="<%= action %>" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="">Görsel</label>
+            <% if(file==null){ %>
+                <input type="file" name="file" class="form-control" />
+            <% }else{ %>
+                <img src="<%- getUrlUpload(file) %>" class="img-fluid"/>
+            <% } %>
+        </div>
+
+        <div class="form-group">
+            <label for="">Başlık</label>
+            <input type="text" name="title" class="form-control" value="<%= title %>"/>
+        </div>
+
+        <div class="form-group">
+            <label for="">Açıklama</label>
+            <textarea rows="2" name="description" class="form-control"><%= description %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="">Etiketler</label>
+            <input type="text" name="tags" class="form-control"  value="<%= tags %>"/>
+        </div>
+
+        <div class="form-group"><%- button %></div>
+    </form>
+</section>
+</div>
+<%- include('../footer'); %>

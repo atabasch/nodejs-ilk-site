@@ -1,0 +1,141 @@
+<%- include('./header.ejs'); %>
+<%- getHeadTitle('<i class="fas fa-stream"></i> Kategoriler') %>
+<div class="row">
+<div class="col-12">
+    <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+    <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+</div>
+
+
+<%
+    let formClass = 'bg-primary';
+    let formTitle = 'Kategori Oluştur';
+    let formButton = '<button class="btn btn-primary float-right"><i class="fas fa-plus"></i> Oluştur</button>';
+    let formUrl = '/admin/category/create';
+    let formCategoryName = '';
+    let formCategorySeflink = '';
+    let formCategoryDescription = '';
+
+    if(pageType=='update' && typeof category != 'undefined'){
+        formClass = 'bg-success';
+        formTitle = 'Kategoriyi Güncelle';
+        formButton = '<button class="btn btn-success float-right"><i class="fas fa-save"></i> Güncelle</button> <a href="/admin/categories" class="btn btn-danger float-right mr-2"><i class="fas fa-chevron-left"></i> Vazgeç</a>';
+        formUrl = '/admin/category/'+category.category_id+'/update';
+        formCategoryName = category.category_name;
+        formCategorySeflink = category.category_seflink;
+        formCategoryDescription = category.category_description;
+    }
+
+%>
+
+
+
+
+<section class="col-md-7">
+    <div class="card card-success">
+        <div class="card-header bg-info text-light">
+            <strong>Kategori Listesi</strong>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-bordered table-striped table-hover mb-0 resultListTable"><thead><tr>
+                <th align="center" width="40">#</th>
+                <th>Kategori</th>
+                <th align="center" width="50">Bağ</th>
+            </tr></thead></table>
+            <div style="max-height:600px; overflow: auto;">
+                <table class="table table-bordered table-striped table-hover mb-0 resultListTable">
+                    <tbody>
+                        <% if(typeof categories != "undefined"){ %>
+                        <% categories.forEach(function(item, index){ %>
+                            <tr id="item-tr-<%= item.category_id%>">
+                                <td align="center" width="40"><%= item.category_id %></td>
+                                <td>
+                                    <%= item.category_name %><br/>
+                                    <ul class="sub-links-list">
+                                        <li><a href="">İçerik Listesi</a></li>
+                                        <li><a href="/admin/category/<%= item.category_id %>">Düzenle</a></li>
+                                        <li><a href="#" onclick="deleteSweet('<%= item.category_name %>', '<%= item.category_id %>', '/admin/category/'+<%= item.category_id %>+'/delete');">Sil</a></li>
+                                    </ul>
+                                    </td>
+                                <td align="center" width="50"><%= item.category_count %></td>
+                            </tr>
+                        <% }); %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="col-md-5">
+
+<div class="card">
+    <div class="card-header <%= formClass %> text-light">
+        <strong><%= formTitle %></strong>
+    </div>
+    <div class="card-body p-2">
+        <form class="" action="<%= formUrl %>" method="post">
+
+            <div class="form-group">
+                <label for=""><strong>Kategori Adı</strong></label>
+                <input type="text" name="name" class="form-control form-control-sm" autofocus value="<%= formCategoryName %>">
+                <hr>
+            </div>
+
+            <div class="form-group">
+                <label for=""><strong>Kategori Seflink</strong></label>
+                <input type="text" name="seflink" class="form-control form-control-sm" value="<%= formCategorySeflink %>">
+                <hr>
+            </div>
+
+            <div class="form-group">
+                <label for=""><strong>Açıklaması</strong></label>
+                <textarea name="description"  rows="3" class="form-control form-control-sm"><%= formCategoryDescription %></textarea>
+                <hr>
+            </div>
+
+            <div class="form-group clearfix">
+                <%- formButton %>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<%- include('./footer.ejs'); %>

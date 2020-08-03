@@ -1,0 +1,176 @@
+<%- include('../header'); %>
+<% let buttons = `
+<a href="/admin/article/create" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Makale Oluştur</a>
+<a href="/admin/article/list" class="btn btn-danger btn-sm float-right mr-2"><i class="fas fa-angle-left"></i> Makaleler</a>
+`; %>
+<%- getHeadTitle(headTitle,buttons); %>
+
+<%
+    let update       = false;
+    let title        = '';
+    let seflink      = '';
+    let description  = '';
+    let content      = '';
+    let cover        = '';
+    let tags         = '';
+    let user         = '';
+    let post_status  = null;
+    let post_create  = '';
+    let post_update  = '';
+    let form_action  = '/admin/article/create';
+    if(typeof post != 'undefined'){
+        update      = true;
+        title       = post.post_title;
+        seflink     = post.post_seflink;
+        description = post.post_description;
+        content     = post.post_content;
+        cover       = post.post_cover.length > 6? post.post_cover : null;
+        tags        = post.post_tags;
+        user        = post.post_user;
+        post_status = post.post_status;
+        post_create = post.post_create;
+        post_update = post.post_update;
+        form_action  = '/admin/article/:id/update'.replace(':id', post.post_id);
+    }
+%>
+<form class="" action="<%= form_action %>" method="post">
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+<div class="col-md-8">
+
+
+    <div class="mb-3">
+        <label for=""><strong>Başlık:</strong></label>
+        <input type="text" name="title" class="form-control form-control-sm" data-seflink="seflink" value="<%= title %>" />
+    </div>
+
+    <div class="mb-3">
+        <label for=""><strong>Seflink:</strong></label>
+        <input type="text"  name="seflink" class="form-control form-control-sm seflink"  value="<%= seflink %>"/>
+    </div>
+
+    <div class="mb-3">
+        <label for=""><strong>Özet:</strong></label>
+        <textarea name="description" rows="4" class="form-control form-control-sm"><%= description %></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for=""><strong>İçerik:</strong></label>
+        <textarea name="content" class="summernote"><%- content %></textarea>
+    </div>
+
+
+</div>
+
+<div class="col-md-4 border-left">
+
+
+    <div class="mb-3">
+        <label for=""><strong>Kapak Fotoğrafı:</strong></label><br>
+        <div class="text-center">
+            <img src="<%- !cover? getUrl('images/select-image.png') : getUrlUpload(cover)  %>" data-default="<%= getUrl('images/select-image.png') %>" id="cover" class="img-fluid" data-take="img_url">
+        </div>
+        <input type="hidden" id="cover" name="cover" value="<%- !cover? '' : cover %>" data-take="img_url" data-default="">
+        <input type="file" id="fileInput" name="file" class="d-none ajaxUploader" data-target="img_url"/>
+        <hr>
+        <div class="buttons row">
+
+            <div class="col-5 p-0 pr-1">
+                <button type="button" class="btn btn-warning btn-block btn-sm" onclick="document.getElementById('fileInput').click()"><i class="fas fa-upload"></i> Gözat</button>
+            </div>
+
+            <div class="col-5 p-0 pl-1">
+                <button type="button" class="btn btn-info btn-block btn-sm" data-toggle="modal" data-target="#modalGallery"><i class="fas fa-photo-video"></i> Galeri</button>
+            </div>
+
+            <div class="col-2 p-0 pl-1">
+                <button type="button" class="btn btn-danger btn-block btn-sm" onclick="setDefaultValue('img_url')"><i class="fas fa-eraser"></i></button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <hr>
+    <div class="mb-3">
+        <label for=""><strong>Etiketler:</strong></label>
+        <input type="text" name="tags" class="form-control form-control-sm" value="<%- tags %>" />
+    </div>
+    <hr>
+    <div class="mb-3">
+        <label for=""><strong>Kategoriler:</strong></label>
+        <div class="categoriesCheckedList">
+            <ul>
+                <%
+                    let postCategoriesArray = [];
+                    if(typeof postCategoriesId != 'undefined'){ postCategoriesId.forEach(item => { postCategoriesArray.push(item.category_id); }); }
+                %>
+                <% categories.forEach((item, index) => { %>
+                    <% let checked = postCategoriesArray.indexOf(item.category_id)<0? '' : 'checked';  %>
+                    <li><label for="item-<%= item.category_id; %>"><input id="item-<%= item.category_id; %>" <%= checked %> type="checkbox" name="categories" value="<%= item.category_id; %>"> <%= item.category_name; %></label></li>
+                <% }); %>
+            </ul>
+        </div>
+    </div>
+    <hr>
+    <div class="mb-3 row">
+        <% if(update){ %>
+        <div class="col-12">
+            <% if(post_status=='publish'){ %>
+                <span class="text-success">Bu içerik şu anda yayında.</span>
+            <% }else if(post_status=='draft'){ %>
+                <span class="text-warning">Bu içerik şu anda <strong>Taslak</strong> olarak kayıtlı olduğu için yayınlanmıyor.</span>
+            <% }else{ %>
+                <span class="text-danger">Bu içerik şu anda <strong>Çöp Kutusunda</strong> olduğu için yayınlanmıyor.</span>
+            <% } %>
+            <hr>
+        </div>
+        <% } %>
+
+        <div class="col-4 pl-1 pr-1">
+            <% if(!update){ %>
+                <button type="submit" name="status" value="publish" class="btn btn-primary btn-sm btn-block"><i class="fas fa-check"></i> Yayınla</button>
+            <% }else{ %>
+                <% if(post_status!='publish'){ %>
+                    <button type="submit" name="status" value="publish" class="btn btn-success btn-sm btn-block"><i class="fas fa-check"></i> Yayınla</button>
+                <% }else{ %>
+                    <button type="submit" name="status" value="publish" class="btn btn-success btn-sm btn-block"><i class="fas fa-check"></i> Güncelle</button>
+                <% } %>
+            <% } %>
+        </div>
+
+        <div class="col-4 pl-1 pr-1">
+            <% if(post_status=='draft'){ %>
+                <button type="submit" name="status" value="draft" class="btn btn-warning btn-sm btn-block"><i class="fas fa-save"></i> Kaydet</button>
+            <% }else{ %>
+                <button type="submit" name="status" value="draft" class="btn btn-warning btn-sm btn-block"><i class="fas fa-save"></i> Taslak</button>
+            <% } %>
+        </div>
+
+        <div class="col-4 pl-1 pr-1">
+            <% if(post_status!='trash' && update){ %>
+                <button type="submit" name="status" value="trash" class="btn btn-danger btn-sm btn-block"><i class="fas fa-trash-alt"></i> Çöp</button>
+            <% } %>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+</form>
+<hr/>
+
+
+
+
+
+
+<%- include('../footer', {includeFooter: 'media/popup'}); %>

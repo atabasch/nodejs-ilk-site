@@ -1,0 +1,101 @@
+<%- include('../header'); %>
+<%- getHeadTitle(headTitle, '<i class="fas fa-chevron-left"></i> Hesaplar', '/admin/user/list', 'danger'); %>
+<%
+    let update       = false;
+    let username     = '';
+    let password     = '';
+    let email        = '';
+    let fullname     = '';
+    let status       = 1;
+    let level        = 1;
+    let form_action  = '/admin/user/create';
+    let button       = '<button type="submit" class="btn btn-primary btn-sm"><i class="fas fa-user-plus"></i> Oluştur</button>';
+    if(typeof user != 'undefined'){
+        update       = true;
+        username     = user.user_username;
+        password     = user.user_password;
+        email        = user.user_email;
+        fullname     = user.user_fullname;
+        status       = user.user_status;
+        level        = user.user_level;
+        form_action  = '/admin/user/:id/update'.replace(':id', user.user_id);
+        if(SESSION.user.id!=user.user_id){
+         button      = `<button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Güncelle</button>
+                        <a href="/admin/user/:id/delete" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i> Sil</a>`.replace(':id', user.user_id);
+        }else{
+            button      = `<button type="submit" class="btn btn-success btn-sm"><i class="fas fa-save"></i> Güncelle</button>`;
+        }
+    }
+%>
+<form class="" action="<%= form_action %>" method="post">
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+<div class="col-md-12">
+
+
+    <div class="mb-3 row">
+        <div class="col-sm-6">
+            <label for=""><strong>Kullanıcı Adı:</strong></label>
+            <input type="text" name="username" class="form-control form-control-sm" value="<%= username %>" <%= !update? '' : 'disabled'  %>/>
+        </div>
+
+        <div class="col-sm-6">
+            <label for=""><strong>Parola:</strong></label>
+            <input type="password" name="password" class="form-control form-control-sm" value="" />
+            <% if(password){ %><small class="text-danger">Değiştirmeyecekseniz şifre alanını boş bırakın</small> <%}%>
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-sm-6">
+            <label for=""><strong>E-Post Adresi:</strong></label>
+            <input type="text" name="email" class="form-control form-control-sm" value="<%= email %>" />
+        </div>
+
+        <div class="col-sm-6">
+            <label for=""><strong>Tam Ad:</strong></label>
+            <input type="text" name="fullname" class="form-control form-control-sm" value="<%= fullname %>" />
+        </div>
+    </div>
+
+    <div class="mb-3 row">
+        <div class="col-sm-6">
+            <label for=""><strong>Hesap Durumu:</strong></label>
+            <select name="status" id="" class="form-control form-control-sm">
+                <option value="1" <%= (status==1)? 'selected' : '' %>>Aktif</option>
+                <option value="0" <%= (status==0)? 'selected' : '' %>>Pasif</option>
+            </select>
+        </div>
+
+        <div class="col-sm-6">
+            <label for=""><strong>Hesap Seviyesi:</strong></label>
+            <select name="level" id="" class="form-control form-control-sm">
+                <option value="1" <%= (level==1)? 'selected' : '' %>>Kullanıcı</option>
+                <option value="2" <%= (level==2)? 'selected' : '' %>>Editör</option>
+                <option value="3" <%= (level==3)? 'selected' : '' %>>Yönetici</option>
+            </select>
+        </div>
+    </div>
+
+
+
+    <div class="col-sm-12 text-right"><%- button %></div>
+
+
+</div>
+
+
+</div>
+</form>
+<hr/>
+
+
+
+
+
+
+<%- include('../footer', {includeFooter: 'media/popup'}); %>

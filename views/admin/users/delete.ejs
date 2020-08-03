@@ -1,0 +1,74 @@
+<%- include('../header'); %>
+<%- getHeadTitle(headTitle, '<i class="fas fa-chevron-left"></i> Hesaplar', '/admin/user/list', 'danger'); %>
+<%
+    let id     = user.user_id;
+    let username     = user.user_username;
+    let email     = user.user_email;
+    let level        = user.user_level;
+    let form_action  = '/admin/user/:id/delete'.replace(':id', user.user_id);
+
+%>
+<form class="" action="<%= form_action %>" method="post">
+    <input type="hidden" name="user_id" value="<%= user.user_id %>">
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+
+<div class="col-md-12">
+
+    <div class="row justify-content-center">
+        <div class="col-sm-6 ">
+            <div><h2 class="text-danger">Dikkat!</h2><hr></div>
+            <p><strong><%- email %></strong> E-posta adresine sahip <strong><%= username %></strong> adlı kullanıcı hesabını kalıcı olarak kaldırmak üzeresiniz.</p>
+            <p>Bu işlem yapıldıktan sonra <span class="text-danger">bir daha geri almak mümkün olmayacak.</span></p>
+            <% if(posts.length > 0 && users.length > 0){ %>
+                <hr>
+                <p>Bu kullanıcı hesabına ait olan aşağıdaki tüm içerikler
+                <select name="author">
+                    <% users.forEach((item, index) => { %>
+                        <option value="<%= item.user_id %>"><%= item.user_username %></option>
+                    <% }) %>
+                </select>
+                 kullanıcı hesabına aktarılsın.</p>
+                 <strong>Kullanıcıya ait içerikler</strong>
+                 <div  class="bg-white border p-1 mt-2 mb-2 heightLimit150">
+                    <ul class="clearList">
+                        <% posts.forEach((item, index) => { %>
+                            <li><%= item.post_title  %></li>
+                        <% }); %>
+                    </ul>
+                 </div>
+
+            <% } %>
+        </div>
+    </div>
+
+
+
+
+    <div class="row justify-content-center">
+        <div class="col-sm-4 ">
+            <button type="submit" class="btn btn-danger btn-sm btn-block"><i class="fas fa-trash-alt"></i> Kullanıcı hesabını kalıcı olarak kaldır</button><br>
+        </div>
+        <div class="col-sm-2">
+            <a href="/admin/user/list" class="btn btn-warning btn-sm btn-block"><i class="fas fa-chevron-left"></i> Vazgeç</a>
+        </div>
+    </div>
+
+
+</div>
+
+
+</div>
+</form>
+<hr/>
+
+
+
+
+
+
+<%- include('../footer', {includeFooter: 'media/popup'}); %>

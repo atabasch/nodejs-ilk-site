@@ -1,0 +1,54 @@
+<%- include('../header'); %>
+<%- getHeadTitle('<i class="fas fa-users"></i> Kullanıcı Hesapları', '<i class="fas fa-user-plus"></i> Hesap Oluştur', '/admin/user/create', 'primary') %>
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+
+
+
+
+<section class="col-12">
+<table class="table table-bordered table-hover table-striped resultListTable">
+
+    <thead>
+        <tr>
+            <th width="40">#</th>
+            <th>Kullanıcı</th>
+            <th>Tam Adı</th>
+            <th>E-Posta</th>
+            <th width="120">Seviye</th>
+            <th width="140">Son Giriş</th>
+            <th width="140">Kayıt</th>
+        </tr>
+    </thead>
+        <% users.forEach((item, index) => { %>
+        <tr id="item-tr-<%= item.user_id %>">
+            <td><%= item.user_id %></td>
+            <td><strong><%= `${item.user_username}` %></strong>
+                <ul class="sub-links-list">
+                    <li><a href="/admin/user/<%= item.user_id %>/edit">Düzenle</a></li>
+                    <% if(SESSION.user.id!=item.user_id){ %><li><a href="/admin/user/<%= item.user_id %>/delete">Sil</a></li><% } %>
+                </ul>
+            </td>
+            <td><%= item.user_fullname %></td>
+            <td><%= item.user_email %></td>
+            <td><%= item.user_level %></td>
+            <td><%= item.user_lastlogin.toDateString() %></td>
+            <td>
+                <span><%= item.user_create.toDateString() %></span><br>
+                <span><%= item.user_update.toDateString() %></span>
+            </td>
+        </tr>
+        <% }); %>
+    <tbody>
+
+    </tbody>
+
+</table>
+
+</section>
+</div>
+<%- include('../footer'); %>

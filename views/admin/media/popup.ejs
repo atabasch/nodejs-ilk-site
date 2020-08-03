@@ -1,0 +1,64 @@
+<div id="modalGallery" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="modalGalleryTitle">Ortam Galerisi</h5>
+        <button type="button" class="close" id="modalGalleryCloseButtonX" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+
+
+
+
+    <div class="modal-body p-0">
+        <div class="container-fluid p-0">
+        <div class="row p-0 m-0">
+            <div class="col-sm-9 p-1">
+                <div class="row" id="mediaGalleryRow">
+
+                </div>
+            </div>
+            <div class="col-sm-3 bg-light" id="mediaGalleryDetail">
+                <div>
+                    <div style="height:200px; overflow:hidden; text-align:center">
+                        <img src=""  height="200px" id="mgsdImg"/>
+                    </div>
+                    <hr>
+                    <form action="">
+                        <input type="hidden" name="id" />
+                        <div class="form-group">
+                            <label for="">Başlık</label>
+                            <input type="text" name="title" id="mgsdTitle" class="form-control form-control-sm" />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Açıklama</label>
+                            <textarea name="description" id="mgsdDescription" class="form-control form-control-sm" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Etiketler</label>
+                            <input type="text" name="tags" id="mgsdTags" class="form-control form-control-sm" />
+                        </div>
+                        <div class="form-group clearfix">
+                            <button class="btn btn-success btn-sm float-right" type="submit"><i class="fas fa-save"></i> Güncelle</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+        </div>
+        </div>
+    </div>
+
+
+
+
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger btn-sm" id="modalGalleryCloseButton" data-dismiss="modal"><i class="fas fa-times"></i> Kapat</button>
+        <input type="file" name="mediaPopupFile" id="mediaPopupFile" class="d-none" />
+        <button type="button" class="btn btn-primary btn-sm" id="modalGalleryBrowseButton" onclick="document.getElementById('mediaPopupFile').click()"><i class="fas fa-upload"></i> Bilgisayardan Yükle</button>
+        <button type="button" class="btn btn-success btn-sm" id="modalGallerySelectButton" onclick="mgSelectImage()" disabled><i class="fas fa-check"></i> Seç</button>
+    </div>
+</div>
+</div>
+</div>

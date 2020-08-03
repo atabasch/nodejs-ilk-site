@@ -1,0 +1,57 @@
+<%- include('../header'); %>
+<%- getHeadTitle('<i class="fas fa-book-open"></i> Yazılar', '<i class="fas fa-plus"></i> Makale Yaz', '/admin/article/create', 'primary') %>
+
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+
+
+
+
+<section class="col-12">
+
+<table class="table table-bordered table-hover table-striped resultListTable">
+
+    <thead>
+        <tr>
+            <th width="64">Kapak</th>
+            <th>Başlık</th>
+            <th>Kategori</th>
+            <th width="120">Yazar</th>
+            <th width="150">Tarih</th>
+        </tr>
+    </thead>
+        <% articles.forEach((item, index) => { %>
+        <tr id="item-tr-<%= item.post_id %>">
+            <td><img src="<%- !item.post_cover? getUrl('images/select-image.png') : getUrlUpload(item.post_cover) %>" class="img-fluid"/>
+
+            </td>
+            <td><%- item.post_status=='draft'? '<span class="badge badge-warning">Taslak</span>' : ''; %>
+                <%- item.post_status=='trash'? '<span class="badge badge-danger">Çöp</span>' : ''; %>
+                <strong><%= item.post_title %></strong>
+                <ul class="sub-links-list">
+                    <li><a class="text-success" href="" target="_blank"><i class="fas fa-eye"></i> Görüntüle</a></li>
+                    <li><a class="text-primary" href="/admin/article/<%= item.post_id %>/edit"><i class="fas fa-edit"></i> Düzenle</a></li>
+                    <li><a class="text-danger" href="#" onclick="deleteSweet('<%= item.post_title %>', '<%= item.post_id %>', '/admin/article/'+<%= item.post_id %>+'/delete');"><i class="fas fa-trash-alt"></i> Sil</a></li>
+                </ul>
+            </td>
+            <td></td>
+            <td><%= item.user_username %></td>
+            <td>
+                <span><%= item.post_create.toDateString() %></span><br>
+                <span><%= item.post_update.toDateString() %></span>
+            </td>
+        </tr>
+        <% }); %>
+    <tbody>
+
+    </tbody>
+
+</table>
+
+</section>
+</div>
+<%- include('../footer'); %>

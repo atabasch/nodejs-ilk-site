@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="base_url" content="<%= getUrl(''); %>" />
+    <meta name="upload_url" content="<%= getUrl('uploads/'); %>" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/admin/style.css' />
+    <link rel='stylesheet' href='/dist/sweetalert2.min.css' />
+    <link rel='stylesheet' href='/summernote/summernote-bs4.min.css' />
+    <link rel='stylesheet' href='/fontawesome/css/all.min.css' />
+
+    <title><%= (typeof title != 'undefined')? title : gtitle %></title>
+  </head>
+  <body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+          <a class="navbar-brand" href="/admin"><strong>ASW</strong>Panel</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerNavbarMenu" aria-controls="headerNavbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="headerNavbarMenu">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item"><a class="nav-link" href="/admin"><i class="fas fa-tachometer-alt"></i> Başlangıç</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/category/list"><i class="fas fa-stream"></i> Kategoriler</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/article/list"><i class="fas fa-book-open"></i> Yazılar</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/page/list"><i class="fas fa-file-alt"></i> Sayfalar</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/user/list"><i class="fas fa-users"></i> Kullanıcılar</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/media/list"><i class="fas fa-photo-video"></i> Ortam</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/contact/list"><i class="fas fa-envelope-open-text"></i> İletişim</a></li>
+              <li class="nav-item"><a class="nav-link" href="/admin/logout"><i class="fas fa-door-open"></i> Çıkış Yap</a></li>
+            </ul>
+          </div>
+      </div>
+    </nav>
+
+
+
+
+    <div class="container p-0 pt-3 pb-3aad" id="wrap">

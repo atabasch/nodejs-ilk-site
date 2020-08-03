@@ -1,0 +1,24 @@
+{
+  "name": "njs-1lisan",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "baslat": "node ./bin/www"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.4.4",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-fileupload": "^1.1.7-alpha.4",
+    "express-flash": "0.0.2",
+    "express-session": "^1.17.1",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "slugify": "^1.4.5",
+    "sweetalert2": "^9.17.1"
+  }
+}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/admin/style.css' />
+    <link rel='stylesheet' href='/fontawesome/css/all.min.css' />
+    <title>Giriş Yap</title>
+</head>
+<body class="pt-5" style="background: black url('/images/login-bg.jpg') center no-repeat; background-size: cover;">
+<div class="row justify-content-center mt-5">
+
+
+
+
+<div class="col-sm-3 mt-5">
+    <form class="" action="/admin/login" method="post">
+    <div class="card bg-dark text-light">
+        <div class="card-header"><strong>Giriş Yap</strong></div>
+        <div class="card-body">
+            <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+            <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+            <div class="form-group mb-2">
+                <label for=""><i class="fas fa-user"></i> Kullanıcı Adı veya E-posta</label>
+                <input type="text" name="asw_username" class="form-control form-control-sm" placeholder="Kullanıcı Adı / E-posta" required autofocus>
+            </div>
+            <div class="form-group mb-2">
+                <label for=""><i class="fas fa-key"></i> Şifre</label>
+                <input type="password" name="asw_password" class="form-control form-control-sm" required placeholder="Şifre" >
+            </div>
+            <hr>
+            <div class="form-group mb-0">
+                <label for="remember_me"><input id="remember_me" type="checkbox" name="asw_remember_me"> Beni Hatırla</label>
+            </div>
+
+        </div>
+        <div class="card-footer clearfix">
+            <button type="submit" class="btn btn-primary btn-sm float-right">Giriş yap</button>
+        </div>
+    </div>
+    </form>
+</div>
+
+
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/fontawesome/js/all.min.js"></script>
+</body>
+</html>
