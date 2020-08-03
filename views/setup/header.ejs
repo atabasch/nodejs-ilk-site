@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel='stylesheet' href='/fontawesome/css/all.min.css' />
+    <title>Kurulum Yap</title>
+</head>
+<body class="pt-5 bg-light">
+<div class="container-fluid">
+<div class="row justify-content-center mt-5">
+<div class="col-sm-6 clearfix">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+</div>
+<div class="col-12"></div>

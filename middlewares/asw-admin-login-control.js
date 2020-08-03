@@ -4,7 +4,7 @@ let boolSession = (session)=>{
 
 module.exports = (request, response, next) => {
     request.session.user = {
-        id: 9,
+        id: 1,
         username: 'atabas61',
         email: 'atabas61@gmail.com',
         level: 3,

@@ -27,6 +27,7 @@ let urlSuccessPostCreate = '/admin/article/:id/edit';
 router.get('/list', (request, response, next) => {
     let sql = `SELECT P.*, U.${gdb.user.username} FROM ${gdb.post.table} AS P
                 INNER JOIN ${gdb.user.table} AS U ON U.${gdb.user.id}=P.${gdb.post.user}
+                WHERE P.${gdb.post.type}='post' 
                 ORDER BY P.${gdb.post.id} DESC`;
     db.query(sql, (error, results, fields) => {
         if(error){
