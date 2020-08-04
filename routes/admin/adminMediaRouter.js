@@ -1,4 +1,5 @@
 let express = require('express');
+var jimp = require('jimp');
 let path = require('path');
 let router = express.Router();
 let db = require('./../../db');
@@ -129,6 +130,92 @@ router.post('/:id/update', (request, response, next) => {
         response.redirect(urlMediaIndex);
     });
 });
+
+
+
+
+
+
+
+
+router.get('/:id/edit-image', (request, response, next) => {
+    let gid = request.params.id;
+    let sql = `SELECT * FROM ${gdb.media.table} WHERE ${gdb.media.id}=?`;
+    let media = null;
+
+    aswDbQuery(db, sql, [gid], 'no-data')
+
+    .then(result => {
+        if(result.length > 0){ media = result[0]; }
+        sql = `SELECT * FROM ${gdb.media.table} ORDER BY ${gdb.media.id} DESC`;
+        return aswDbQuery(db, sql, [gid], 'no-data')
+    })
+
+    .then(result => {
+        if(!media){
+            request.flash('error', 'Hedef dosya bulunamadı.');
+            response.redirect(urlMediaIndex);
+        }else{
+            let data = {
+                title:' Dosya Düzenle',
+                items: result,
+                media: media
+            }
+            response.render('admin/media/edit-image', data);
+        }
+    })
+
+    .catch(errorResult => {
+        request.flash('error', 'Beklenmedik bir sorun oluştu.');
+        response.redirect(urlMediaIndex);
+    })
+});
+
+
+router.post('/update-image-changes', (request, response, next) => {
+    let imgPath = request.body.image;
+    let name = request.body.name;
+    let x = parseInt(request.body.x);
+    let y = parseInt(request.body.y);
+    let w = parseInt(request.body.w);
+    let h = parseInt(request.body.h);
+    let q = parseInt(request.body.q);
+    //let r = parseInt(request.body.r);
+    let sx = parseInt(request.body.sx);
+    let sy = parseInt(request.body.sy);
+
+    console.log(x)
+    console.log(y)
+    console.log(w)
+    console.log(h)
+    //console.log(r)
+    console.log(sx)
+    console.log(sy)
+    console.log(q)
+    jimp.read(path.join(__dirname, '../../public/uploads/'+name))
+    .then(image => {
+
+        if(x<1 || y<1){
+            return image
+            .quality(q) // set JPEG quality
+            .write('public/uploads/'+name); // save
+        }else{
+            return image
+            .crop(x, y, w, h) // set JPEG quality
+            .quality(q) // set JPEG quality
+            .write('public/uploads/'+name); // save
+        }
+
+    })
+    .then(result => {
+        console.log(result);
+        response.json({status:true});
+    })
+    .catch(error => {
+        console.log(error);
+        response.json({status:false});
+    })
+})
 
 
 

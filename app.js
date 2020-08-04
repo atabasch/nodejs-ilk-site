@@ -54,7 +54,8 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules/sweetalert2')));
-app.use(express.static(path.join(__dirname, 'node_modules/@popperjs/core/dist/umd')))
+app.use(express.static(path.join(__dirname, 'node_modules/@popperjs/core/dist/umd')));
+app.use(express.static(path.join(__dirname, 'node_modules/cropperjs/dist')));
 
 // Session ve Flash Ayarlamaları.
 app.use(session({

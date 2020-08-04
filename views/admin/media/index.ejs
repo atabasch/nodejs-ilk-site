@@ -31,7 +31,7 @@
                 <% } %>
             </td>
             <td>
-                <strong><%= item.media_title %></strong>
+                <strong><a href="/admin/media/<%= item.media_id %>/edit-image" class="text-dark"><%= item.media_title %></a></strong>
                 <ul class="sub-links-list">
                     <li><a class="text-dark" href="#" onclick="copy2Clipboard('<%= getUrlUpload(item.media_file) %>');"><i class="fas fa-link"></i> Url Kopyala</a></li>
                     <li><a class="text-success" href="<%= getUrlUpload(item.media_file) %>" target="_blank"><i class="far fa-eye"></i> Görüntüle</a></li>
@@ -68,7 +68,8 @@
         button = `<div class="row">
             <div class="col-6 p-0 pr-1"><button class="btn btn-success btn-sm btn-block"><i class="fas fa-save"></i> Güncelle</button>'</div>
             <div class="col-6 p-0 pl-1"><a href="/admin/media/list" class="btn btn-danger btn-sm btn-block"><i class="fas fa-chevron-left"></i> Vazgeç</a>'</div>
-        </div>`;
+            <div class="col-12 p-0 pl-1"><a href="/admin/media/:id/edit-image" class="btn btn-info btn-sm btn-block"><i class="fas fa-crop"></i> Görsel Düzenlemeler Yap</a>'</div>
+        </div>`.replace(':id', media.media_id);
     }
 %>
 
