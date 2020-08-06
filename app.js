@@ -11,8 +11,9 @@ var db = require('./db');
 var global_functions = require('./global_functions');
 var global_variables = require('./global_variables');
 
-
-db.connect();
+if(process.env.DB_CONFIG_STATUS=='true'){
+    db.connect();
+}
 
 
 

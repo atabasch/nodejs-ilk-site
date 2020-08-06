@@ -15,47 +15,9 @@ router.get('/', (request, response, next) => {
 });
 
 
-
-
-
-
-
-
-
-
 router.get('/step-database', (request, response, next) => {
-
-    /*fs.readFile(path.join(__dirname, '../database.sql'), 'utf8', (readFileError, readFileData) => {
-        if(readFileError){
-            request.flash('error', 'Dosya okuma başarısız oldu. Lütfen gerekli dosyalara okuma izni verin.');
-            response.render('setup/database');
-        }else{
-            aswDbQuery(db, readFileData, null)
-            .then(result => {
-                request.flash('success', 'Veritabanı Kuruldu');
-                response.redirect('/asw-app-setup/step-general');
-            })
-            .catch(error => {
-                request.flash('error', 'Veritabanı kurulum işlemi başarısız oldu.');
-                response.render('setup/database');
-            });
-
-        }
-    });*/
-
     response.render('setup/database');
-
-
 });
-
-
-
-
-
-
-
-
-
 
 
 router.post('/step-database', (request, response, next) => {
@@ -64,6 +26,7 @@ router.post('/step-database', (request, response, next) => {
     let database = request.body.database;
     let username = request.body.username;
     let password = request.body.password;
+    let port = request.body.port;
 
     // .env-sample dosyasını al gerekli değişiklikleri yap
     fs.readFile(path.join(__dirname, '../.env-sample'), 'utf8', (readFileError, data)=>{
@@ -77,7 +40,9 @@ router.post('/step-database', (request, response, next) => {
             let newData = data.replace(':DB_HOST:', host)
                               .replace(':DB_NAME:', database)
                               .replace(':DB_USER:', username)
-                              .replace(':DB_PASSWORD:', password);
+                              .replace(':DB_PASSWORD:', password)
+                              .replace(':DB_PORT:', port)
+                              .replace(':DB_CONFIG_STATUS:', 'true');
 
             fs.writeFile(path.join(__dirname, '../.env'), newData, 'utf8', (writeFileError) => {
 

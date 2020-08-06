@@ -114,7 +114,7 @@ router.post('/:id/update', (request, response, next) => {
     let gid         = request.params.id;
     let redirectUrl = '/admin/media/:id/edit'.replace(':id', gid);
     datas           = {
-        [gdb.media.title]       : request.body.title,
+        [gdb.media.title]       : request.body.title.trim(),
         [gdb.media.seflink]     : slugify(request.body.title, {lower: true}),
         [gdb.media.description] : request.body.description,
         [gdb.media.tags]        : request.body.tags,
@@ -275,7 +275,7 @@ router.post('/upload', (request, response, next) => {
         response.redirect(urlErrorMediaUpload);
     }else{
 
-        let title = request.body.title;
+        let title = request.body.title.trim();
         let seflink = slugify(title, {lower: true});
         let description = request.body.description;
         let tags = request.body.tags;
@@ -284,7 +284,9 @@ router.post('/upload', (request, response, next) => {
 
         aswUpload(request.files.file, 'media')
         .then(result => {
+            console.log(result);
             let filePath = result.path;
+            if(title.length < 1){ title = result.title; }
             let sqlInsertMedia = `INSERT INTO ${gdb.media.table} SET
                                                 ${gdb.media.title}=?,
                                                 ${gdb.media.seflink}=?,

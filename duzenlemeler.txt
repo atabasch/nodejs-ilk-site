@@ -1,4 +1,0 @@
-- getUrl gibi fonksiyonları düzenle.
-- uploadds dosyası githuba yüklenmiyor sorun oluyor
-- ilk yüklemede env dosyası olmasa bile db hatası alıyorsun.
-- Ortam sayfasında resim yüklenirken resim adı oluşmuyor.

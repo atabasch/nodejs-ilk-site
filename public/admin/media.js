@@ -60,7 +60,7 @@ function mgSetSelected(item){
 
 // Görseli seçmek
 function mgSelectImage(){
-    let url = $('meta[name=upload_url]').attr('content')+selectedImage.data.media_file;
+    let url = '/uploads/'+selectedImage.data.media_file;
     // Aşağıdaki kodlar ile data-take="img_url" etiketine sahip nesnelere bilgi gönderiliyor.
     $('input[data-take=img_url]').val(selectedImage.data.media_file);
     $('img[data-take=img_url]').attr('src', url);
