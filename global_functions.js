@@ -1,4 +1,4 @@
-global.urlSite = 'http://127.0.0.1:3000/';
+global.urlSite = process.env.SITE_URL+'/' || 'http://127.0.0.1:3000/';
 global.urlPanel = urlSite+'admin/';
 
 global.getUrl = (more)=>{

@@ -19,7 +19,7 @@
     if(pageType=='update' && typeof category != 'undefined'){
         formClass = 'bg-success';
         formTitle = 'Kategoriyi Güncelle';
-        formButton = '<button class="btn btn-success float-right"><i class="fas fa-save"></i> Güncelle</button> <a href="/admin/categories" class="btn btn-danger float-right mr-2"><i class="fas fa-chevron-left"></i> Vazgeç</a>';
+        formButton = '<button class="btn btn-success float-right"><i class="fas fa-save"></i> Güncelle</button> <a href="/admin/category/list" class="btn btn-danger float-right mr-2"><i class="fas fa-chevron-left"></i> Vazgeç</a>';
         formUrl = '/admin/category/'+category.category_id+'/update';
         formCategoryName = category.category_name;
         formCategorySeflink = category.category_seflink;
