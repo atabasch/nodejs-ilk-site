@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
-    "baslat": "node ./bin/www"
+    "start": "node ./bin/www",
+    "nodemon": "nodemon ./bin/www"
   },
   "dependencies": {
     "@popperjs/core": "^2.4.4",
