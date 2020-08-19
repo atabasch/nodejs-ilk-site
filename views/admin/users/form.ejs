@@ -1,5 +1,8 @@
 <%- include('../header'); %>
-<%- getHeadTitle(headTitle, '<i class="fas fa-chevron-left"></i> Hesaplar', '/admin/user/list', 'danger'); %>
+<%- getHeadTitleSection({
+    title: { label: headTitle, icon: 'fas fa-users', icon_class:'bg-success text-light' },
+    buttons: [ { label:'Hesaplar', href:'/admin/user/list', icon:'fas fa-chevron-left', color:'danger' } ]
+}) %>
 <%
     let update       = false;
     let username     = '';

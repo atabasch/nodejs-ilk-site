@@ -73,6 +73,20 @@ global.gdb = {
         create:     'media_create'
     },
 
+    contact: {
+        table:    db_prefix+'contacts',
+        id:       'contact_id',
+        title:    'contact_title',
+        author:   'contact_author',
+        content:  'contact_content',
+        datas:    'contact_datas',
+        parent:   'contact_parent',
+        type:     'contact_type',
+        status:   'contact_status',
+        create:   'contact_create',
+        update:   'contact_update'
+    },
+
 
 } // gdb global database
 

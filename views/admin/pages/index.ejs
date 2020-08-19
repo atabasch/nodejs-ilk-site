@@ -1,6 +1,8 @@
 <%- include('../header'); %>
-<%- getHeadTitle('<i class="fas fa-file-alt"></i> Sayfalar', '<i class="fas fa-plus"></i> Yeni Sayfa', '/admin/page/create', 'primary') %>
-
+<%- getHeadTitleSection({
+    title: { label: 'Sayfalar', icon: 'fas fa-file-alt', icon_class:'bg-warning text-dark' },
+    buttons: [ { label: 'Sayfa Oluştur', href:'/admin/page/create', icon: 'fas fa-plus', color: 'primary' } ]
+}) %>
 <div class="row">
     <div class="col-12">
         <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>

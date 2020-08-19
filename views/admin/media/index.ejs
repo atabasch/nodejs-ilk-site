@@ -1,6 +1,7 @@
 <%- include('../header'); %>
-<%- getHeadTitle('<i class="fas fa-photo-video"></i> Ortam Dosyaları') %>
-
+<%- getHeadTitleSection({
+    title: { label: 'Ortam Dosyaları', icon: 'fas fa-photo-video', icon_class:'bg-danger text-light' }
+}) %>
 <div class="row">
     <div class="col-12">
         <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>

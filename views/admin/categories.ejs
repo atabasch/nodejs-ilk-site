@@ -1,7 +1,9 @@
 <%- include('./header.ejs'); %>
-<%- getHeadTitle('<i class="fas fa-stream"></i> Kategoriler') %>
+<%- getHeadTitleSection({
+    title: { label: 'Kategoriler', icon: 'fas fa-stream', icon_class:'bg-info text-light' }
+}) %>
 <div class="row">
-<div class="col-12">
+<div class="col-12 p-0">
     <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
     <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
 </div>
@@ -31,7 +33,7 @@
 
 
 
-<section class="col-md-7">
+<section class="col-md-7 p-0">
     <div class="card card-success">
         <div class="card-header bg-info text-light">
             <strong>Kategori Listesi</strong>
@@ -84,7 +86,7 @@
 
 
 
-<section class="col-md-5">
+<section class="col-md-5 pr-0">
 
 <div class="card">
     <div class="card-header <%= formClass %> text-light">

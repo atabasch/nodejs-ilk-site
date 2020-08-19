@@ -1,9 +1,11 @@
 <%- include('../header'); %>
-<% let buttons = `
-<a href="/admin/article/create" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Makale Oluştur</a>
-<a href="/admin/article/list" class="btn btn-danger btn-sm float-right mr-2"><i class="fas fa-angle-left"></i> Makaleler</a>
-`; %>
-<%- getHeadTitle(headTitle,buttons); %>
+<%- getHeadTitleSection({
+    title: { label: headTitle, icon: 'fas fa-book-open', icon_class:'bg-primary text-light' },
+    buttons: [
+        { label: 'Makaleler', href:'/admin/article/list', icon: 'fas fa-angle-left', color: 'danger' },
+        { label: 'Makale Oluştur', href:'/admin/article/create', icon: 'fas fa-plus', color: 'primary' },
+     ]
+}) %>
 
 <%
     let update       = false;

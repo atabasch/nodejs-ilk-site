@@ -1,8 +1,9 @@
 /*
-  Style .css
+font-family: 'Roboto', sans-serif;
+font-family: 'Titillium Web', sans-serif;
 */
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: 14px 'Roboto', sans-serif;
 }
 
 a {
@@ -43,3 +44,8 @@ ul.clearList li{height:25px; line-height: 25px; overflow: hidden; border-bottom:
 .scale-4x3{ padding-bottom: 75%; }
 .scale-3x4{ padding-bottom: 133%; }
 .scale-16x9{ padding-bottom: 56.25%; }
+
+#headTitleSection h4{font-family: 'Titillium Web', sans-serif; font-weight: 700}
+
+#headerNavbarMenu a.nav-link{ font-family: 'Titillium Web', sans-serif; font-weight: 600}
+#headerNavbarMenu a.nav-link span{ font-size: 1rem; margin-right: 3px; }

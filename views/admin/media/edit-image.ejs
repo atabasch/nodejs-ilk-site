@@ -1,9 +1,12 @@
 <%- include('../header') %>
-<% let buttons = `
-<a href="/admin/media/list" class="btn btn-danger btn-sm float-right"><i class="fas fa-angle-left"></i> Dosyalar</a>
-<a href="/admin/media/:id/edit" class="btn btn-primary btn-sm float-right mr-2"><i class="fas fa-edit"></i> İsim Bilgilerini Düzenle</a>
-`.replace(':id', media.media_id); %>
-<%- getHeadTitle('<i class="fas fa-crop"></i> Görsel Düzenle', buttons) %>
+<%- getHeadTitleSection({
+    title: { label: 'Görsel Düzenle', icon: 'fas fa-crop', icon_class:'bg-danger text-light' },
+    buttons: [
+        { label: ' İsim Bilgilerini Düzenle', href:'/admin/media/:id/edit'.replace(':id', media.media_id), icon: 'fas fa-edit', color: 'primary' },
+        { label: 'Medya Listesi', href:'/admin/media/list', icon: 'fas fa-angle-left', color: 'danger' },
+     ]
+}) %>
+
 <div class="row" id="actionsTop">
     <div class="col-md-9 docs-toggles">
         <div class="btn-group d-flex flex-nowrap" data-toggle="buttons">

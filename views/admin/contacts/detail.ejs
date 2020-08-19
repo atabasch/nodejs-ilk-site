@@ -1,0 +1,121 @@
+<%- include('../header.ejs'); %>
+<%- getHeadTitleSection({
+    title: { label: title, icon: 'fas fa-envelope-open-text', icon_class:'bg-info text-light' },
+    buttons: [ { label: 'İletişim Mesajları', href:'/admin/contact/list', icon: 'fas fa-chevron-left', color: 'danger' } ]
+}) %>
+<div class="row" id="app">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+<section class="col-12 p-0 pb-5">
+
+<% let datas = JSON.parse(item.contact_datas); %>
+
+<div class="bg-white shadow p-3 rounded">
+    <h4 class="d-inline text-dark"><%= item.contact_author %></h4>
+
+    <% if(typeof datas.email != 'undefined'){ %>
+        <h6 class="d-inline text-secondary"><a href="mailto:<%= datas.email %>"><%= '<'+datas.email+'>' %></a></h6>
+    <% } %>
+
+    <hr>
+    <div class="p-3"><%- item.contact_content %></div>
+    <hr>
+
+    <h6>Diğer Bilgiler</h6>
+    <div><strong>Tür:</strong> <%= getContactType(item.contact_type) %></div>
+    <% for(let data in datas){ %>
+        <div><strong><%= data %>:</strong> <%= datas[data] %></div>
+    <% } %>
+
+    <hr>
+
+    <div class="clearfix">
+        <%- item.contact_status>1? '<h3 class="d-inline text-success">Yanıtlandı</h3>' : ''  %>
+        <button class="btn btn-primary float-right" @click="prepareReply(`<%= item.contact_title %>`, `<%= datas.email || '' %>`, `<%= item.contact_content %>`)"><i class="fas fa-reply"></i> Cevapla</button>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="bg-white shadow p-3 rounded mt-5 mb-5" v-if="showReplyBox">
+    <h4>Cevap Yaz</h4><hr>
+    <form action="<%= '/admin/contact/:id/reply'.replace(':id', item.contact_id) %>" method="post">
+        <div class="form-group mt-2">
+            <label for="">Başlık:</label>
+            <input type="text" class="form-control form-control-sm" v-model="subject" name='subject'>
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="">Alıcı:</label>
+            <input type="text" class="form-control form-control-sm" v-model="to" name='to'>
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="">Cevap:</label>
+            <textarea name='reply' class="form-control form-control-sm" v-model="reply" rows="7" required></textarea>
+            <textarea name='content' class="d-none" v-model="content"></textarea>
+        </div>
+
+        <div class="form-group mt-3 text-right clearfix">
+            <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Gönder</button>
+        </div>
+    </form>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<% if(answers.length > 0){ %>
+<h4 class="text-dark m-0 mt-5">Yanıtlamalar</h4>
+<% answers.forEach((answer, index) => { %>
+
+    <div class="bg-white shadow p-3 rounded mt-3">
+        <h5>Konu = [ <%- answer.contact_title %> ]</h5>
+        <h6><%- getDateString(answer.contact_create) %> tarihinde yanıtlandı</h6>
+        <%- answer.contact_content %>
+    </div>
+
+<% }) %>
+<% } %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</section>
+</div>
+<%- include('../footer.ejs', {incFooterAfter: 'contacts/script'}); %>

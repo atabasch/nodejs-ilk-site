@@ -1,0 +1,67 @@
+<%- include('header.ejs'); %>
+<div class="col-md-8">
+    <h1><%= title %></h1><hr>
+
+    <div class="row" id="contactApp">
+        <div class="col-12 form-group">
+            <label for="form-label">Konu: </label>
+            <input type="text" class="form-control" placeholder="İletişim Amacı" v-model="title" required/>
+        </div>
+
+        <div class="col-12 col-sm-6 form-group">
+            <label for="form-label">Adınız: </label>
+            <input type="text" class="form-control" placeholder="Tam isim"  v-model="name" required/>
+        </div>
+
+        <div class="col-12 col-sm-6 form-group">
+            <label for="form-label">E-Posta Adresiniz: </label>
+            <input type="email" class="form-control" placeholder="E-mail" v-model="email" />
+        </div>
+
+        <div class="col-12 col-sm-6 form-group">
+            <label for="form-label">Telefon No: </label>
+            <input type="text" class="form-control" placeholder="Tel"  v-model="phone"/>
+        </div>
+
+        <div class="col-12 col-sm-6 form-group">
+            <label for="form-label">İletişim Türü: </label>
+            <select class="form-control"  v-model="type" required>
+                <option value="question">Soru</option>
+                <option value="proposal">Öneri</option>
+                <option value="business">İş</option>
+            </select>
+        </div>
+
+        <div class="col-12 form-group">
+            <label for="form-label">Mesaj İçeriği </label>
+            <textarea name="name" class="form-control" rows="8" cols="80" v-model="content"></textarea>
+        </div>
+
+        <div class="col-12" v-if="showSuccess">
+            <div class="alert alert-success">
+            <strong>Başarılı</strong>
+            <p>Mesajınız başarılı bir şekilde yöneticilerimize iletilmiştir. En kısa zamanda size dönüş yapacağız.</p>
+            </div>
+        </div>
+
+        <div class="col-12" v-if="showError">
+            <div class="alert alert-danger">
+            <strong>Bir sorun oluştur</strong>
+            <p>Mesajınız gönderilirken sistem tarafında belirlenemeyen bir sorun oluştu. Lütfen başka bir zaman yeniden deneyin.</p>
+            </div>
+        </div>
+
+        <div class="col-12 clearfix">
+            <button class="btn btn-primary float-right" type="button" @click="send">Gönder</button>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<%- include('footer.ejs', { footerScripts: [
+    '<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>',
+    '<script src="/js/page-contact.js"></script>'
+] }); %>

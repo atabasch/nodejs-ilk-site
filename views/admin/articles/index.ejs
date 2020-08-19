@@ -1,6 +1,8 @@
 <%- include('../header'); %>
-<%- getHeadTitle('<i class="fas fa-book-open"></i> Yazılar', '<i class="fas fa-plus"></i> Makale Yaz', '/admin/article/create', 'primary') %>
-
+<%- getHeadTitleSection({
+    title: { label: 'Yazılar', icon: 'fas fa-book-open', icon_class:'bg-primary text-light' },
+    buttons: [ { label: 'Makale Oluştur', href:'/admin/article/create', icon: 'fas fa-plus', color: 'primary' } ]
+}) %>
 <div class="row">
     <div class="col-12">
         <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
@@ -11,7 +13,7 @@
 
 
 
-<section class="col-12">
+<section class="col-12 p-0">
 
 <table class="table table-bordered table-hover table-striped resultListTable">
 
@@ -21,7 +23,7 @@
             <th>Başlık</th>
             <th>Kategori</th>
             <th width="120">Yazar</th>
-            <th width="150">Tarih</th>
+            <th width="180">Tarih</th>
         </tr>
     </thead>
         <% articles.forEach((item, index) => { %>
@@ -41,8 +43,8 @@
             <td></td>
             <td><%= item.user_username %></td>
             <td>
-                <span><%= item.post_create.toDateString() %></span><br>
-                <span><%= item.post_update.toDateString() %></span>
+                <span><%= getDateString(item.post_create) %></span><br>
+                <span><%= getDateString(item.post_update) %></span>
             </td>
         </tr>
         <% }); %>

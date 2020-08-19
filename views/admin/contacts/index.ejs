@@ -1,5 +1,47 @@
 <%- include('../header.ejs'); %>
-<div class="alert alert-danger">
-    Bu sayfa henüz hazırlanmadı
+<%- getHeadTitleSection({
+    title: { label: 'İletişim Mesajları', icon: 'fas fa-envelope-open-text', icon_class:'bg-info text-light' },
+    //buttons: [ { label: 'Sayfa Oluştur', href:'/admin/page/create', icon: 'fas fa-plus', color: 'primary' } ]
+}) %>
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+
+
+
+
+<section class="col-12 p-0">
+
+<table class="table border table-hover table-striped resultListTable">
+
+    <thead>
+        <tr>
+            <th width="30">#</th>
+            <th>Konu</th>
+            <th width="180">Gönderen</th>
+            <th width="90">Tür</th>
+            <th width="180">Tarih</th>
+        </tr>
+    </thead>
+        <% items.forEach((item, index) => { %>
+        <% let onclickcontent = "window.location.href='/admin/contact/:id/detail'".replace(':id', item.contact_id) %>
+        <tr id="item-tr-<%= item.contact_id %>" class="<%= item.contact_status==0? 'font-weight-bold' : ''; %>" onclick="<%= onclickcontent %>" style="cursor:pointer">
+            <td><%= item.contact_id %></td>
+            <td><%= item.contact_status==2? '[Yanıtlandı] - ' : '' %><%= item.contact_title %></td>
+            <td><%= item.contact_author %></td>
+            <td><%= getContactType(item.contact_type) %></td>
+            <td><span><%= getDateString(item.contact_create) %></span></td>
+        </tr>
+        <% }); %>
+    <tbody>
+
+    </tbody>
+
+</table>
+
+</section>
 </div>
 <%- include('../footer.ejs'); %>

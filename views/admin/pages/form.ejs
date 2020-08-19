@@ -1,9 +1,9 @@
 <%- include('../header'); %>
-<% let buttons = `
-<a href="/admin/page/create" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Yeni Sayfa</a>
-<a href="/admin/page/list" class="btn btn-danger btn-sm float-right mr-2"><i class="fas fa-angle-left"></i> Sayfalar</a>
-`; %>
-<%- getHeadTitle(headTitle,buttons); %>
+<%- getHeadTitleSection({
+    title: { label: headTitle, icon: 'fas fa-file-alt', icon_class:'bg-warning text-dark' },
+    buttons: [  { label: 'Sayfalar', href:'/admin/page/list', icon: 'fas fa-angle-left', color: 'danger' },
+                { label: 'Sayfa Oluştur', href:'/admin/page/create', icon: 'fas fa-plus', color: 'primary' } ]
+}) %>
 
 <%
     let update       = false;

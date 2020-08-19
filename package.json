@@ -21,6 +21,7 @@
     "jimp": "^0.14.0",
     "morgan": "~1.9.1",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.4.11",
     "slugify": "^1.4.5",
     "sweetalert2": "^9.17.1"
   }

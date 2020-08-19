@@ -1,0 +1,26 @@
+<script>
+
+const app = new Vue({
+    el: '#app',
+    data: {
+        to: '',
+        subject: '',
+        content: null,
+        reply: null,
+        showReplyBox: false
+    },
+    methods: {
+        sendMail: function(){
+            alert('mesaj gönderilmeli');
+        },
+
+        prepareReply: function(subject, to, content){
+            this.showReplyBox = true;
+            this.subject = 'Yanıt: '+subject;
+            this.to = to;
+            this.content = `${content}`;
+        }
+    }
+});
+
+</script>

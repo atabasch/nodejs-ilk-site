@@ -1,3 +1,82 @@
 <%- include('./header.ejs'); %>
-deneme
+<%- getHeadTitleSection({
+    title: {
+        label: 'Başlangıç',
+        icon: 'fas fa-tachometer-alt',
+        icon_class: 'bg-primary text-light'
+    },
+    buttons: [
+        { label:'Web Sitesini Aç', href:'/', icon: 'fas fa-eye', color:'info', target: '_blank' },
+    ]
+}) %>
+<div class="row">
+    <div class="col-12 col-sm-3 p-1"><div class="bg-white shadow p-2 rounded d-flex">
+            <div class="bg-info text-white mr-3 text-center p-3 rounded" style="font-size:1.3rem"><i class="fas fa-quote-right"></i></div>
+            <div>   <span class="text-secondary">Yayımlanmış Makale</span>
+                    <h3 class="text-dark m-0 p-0 font-weight-bold"><%= count_posts %></h3>  </div>
+    </div></div>
+
+    <div class="col-12 col-sm-3 p-1"><div class="bg-white shadow p-2 rounded d-flex">
+            <div class="bg-danger text-white mr-3 text-center p-3 rounded" style="font-size:1.3rem"><i class="fas fa-photo-video"></i></div>
+            <div>   <span class="text-secondary">Medya Dosyaları</span>
+                    <h3 class="text-dark m-0 p-0 font-weight-bold"><%= count_media %></h3>  </div>
+    </div></div>
+
+    <div class="col-12 col-sm-3 p-1"><div class="bg-white shadow p-2 rounded d-flex">
+            <div class="bg-success text-white mr-3 text-center p-3 rounded" style="font-size:1.3rem"><i class="fas fa-users"></i></div>
+            <div>   <span class="text-secondary">Kayıtlı Kullanıcı</span>
+                    <h3 class="text-dark m-0 p-0 font-weight-bold"><%= count_users %></h3>  </div>
+    </div></div>
+
+    <div class="col-12 col-sm-3 p-1"><div class="bg-white shadow p-2 rounded d-flex">
+            <div class="bg-warning text-white mr-3 text-center p-3 rounded" style="font-size:1.3rem"><i class="fas fa-comments"></i></div>
+            <div>   <span class="text-secondary">Yorumlar</span>
+                    <h3 class="text-dark m-0 p-0 font-weight-bold"><%= count_comments %></h3>  </div>
+    </div></div>
+</div>
+
+<div class="row mt-3">
+
+    <div class="col-sm-8 p-1">
+
+        <div class="card bg-white shadow border-light">
+            <div class="card-header border-light bg-white p-2">
+                <h5 class="card-title m-0 text-dark">Son Makaleler</h5>
+            </div>
+            <div class="card-body p-0 bg-white border-light">
+            <div class="table-responsive">
+                <table class="table table-striped table-hovered m-0 border-white">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Başlık</th>
+                            <th>Durum</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% last_posts.forEach((item, index) => { %>
+                            <tr>
+                                <td><%= item.post_id %></td>
+                                <td><a href="/admin/article/<%= item.post_id %>/edit" class="text-dark font-weight-bold"><%= item.post_title %></a></td>
+                                <td>
+                                    <%- item.post_status=='publish'? '<span class="badge d-block badge-success">Yayında</span>' : ''; %>
+                                    <%- item.post_status=='draft'? '<span class="badge d-block badge-warning">Taslak</span>' : ''; %>
+                                    <%- item.post_status=='trash'? '<span class="badge d-block badge-danger">Çöp</span>' : ''; %>
+                                </td>
+                            </tr>
+                        <% }); %>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+            <div class="card-footer clearfix bg-white  border-top">
+                <a href="/admin/article/list" class="btn btn-dark btn-sm float-left">Tüm Yazılar</a>
+                <a href="/admin/article/create" class="btn btn-primary btn-sm float-right"><i class="fas fa-plus"></i> Makale Yaz</a>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
 <%- include('./footer.ejs'); %>

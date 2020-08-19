@@ -4,8 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-
-    <!-- Bootstrap CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&family=Titillium+Web:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.1/css/bootstrap.min.css" />
     <link rel='stylesheet' href='/admin/style.css' />
     <link rel='stylesheet' href='/dist/sweetalert2.min.css' />
@@ -16,29 +15,29 @@
   </head>
   <body class="bg-light">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-          <a class="navbar-brand" href="/admin"><strong>ASW</strong>Panel</a>
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerNavbarMenu" aria-controls="headerNavbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom row justify-content-center p-0 clearfix">
+      <div class="col-sm-10 clearfix p-0 mt-2 mb-2">
 
-          <div class="collapse navbar-collapse" id="headerNavbarMenu">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item"><a class="nav-link" href="/admin"><i class="fas fa-tachometer-alt"></i> Başlangıç</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/category/list"><i class="fas fa-stream"></i> Kategoriler</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/article/list"><i class="fas fa-book-open"></i> Yazılar</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/page/list"><i class="fas fa-file-alt"></i> Sayfalar</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/user/list"><i class="fas fa-users"></i> Kullanıcılar</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/media/list"><i class="fas fa-photo-video"></i> Ortam</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/contact/list"><i class="fas fa-envelope-open-text"></i> İletişim</a></li>
-              <li class="nav-item"><a class="nav-link" href="/admin/logout"><i class="fas fa-door-open"></i> Çıkış Yap</a></li>
-            </ul>
-          </div>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#headerNavbarMenu" aria-controls="headerNavbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse navbar-nav" id="headerNavbarMenu">
+                <a class="nav-link" href="/admin"><strong><i class="fas fa-tachometer-alt"></i> Asw</strong></a>
+                <%- getAhref('Yazılar',      '/admin/article/list',   'nav-link', 'fas fa-book-open') %>
+                <%- getAhref('Kategoriler',  '/admin/category/list',  'nav-link', 'fas fa-stream') %>
+                <%- getAhref('Sayfalar',     '/admin/page/list',      'nav-link', 'fas fa-file-alt') %>
+                <%- getAhref('Kullanıcılar', '/admin/user/list',      'nav-link', 'fas fa-users') %>
+                <%- getAhref('Ortam',        '/admin/media/list',     'nav-link', 'fas fa-photo-video') %>
+                <%- getAhref('Yorumlar',     '/admin/comment/list',   'nav-link', 'fas fa-comments') %>
+                <%- getAhref('İletişim',     '/admin/contact/list',   'nav-link', 'fas fa-envelope-open-text') %>
+                <%- getAhref('Çıkış',        '/admin/logout',         'nav-link  ml-auto', 'fas fa-door-open') %>
+              </div>
       </div>
     </nav>
 
 
 
 
-    <div class="container p-0 pt-3 pb-3aad" id="wrap">
+    <div class="row p-0 pt-3 pb-3aad justify-content-center" id="wrap">
+    <div class="col-sm-10">

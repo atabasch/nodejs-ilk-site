@@ -57,3 +57,16 @@ CREATE TABLE IF NOT EXISTS asw_post_category (
   post_id int(11) NOT NULL,
   PRIMARY KEY (post_category_id)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `asw_contacts` (
+  `contact_id` int(11) NOT NULL AUTO_INCREMENT,
+  `contact_title` varchar(255) NOT NULL,
+  `contact_author` varchar(100) NOT NULL,
+  `contact_content` text NOT NULL,
+  `contact_datas` text,
+  `contact_parent` int(11) NOT NULL DEFAULT '0',
+  `contact_type` varchar(15) NOT NULL DEFAULT 'standart',
+  `contact_status` tinyint(1) NOT NULL DEFAULT '0',
+  `contact_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `contact_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`contact_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;

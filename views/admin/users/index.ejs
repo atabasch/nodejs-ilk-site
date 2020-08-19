@@ -1,5 +1,8 @@
 <%- include('../header'); %>
-<%- getHeadTitle('<i class="fas fa-users"></i> Kullanıcı Hesapları', '<i class="fas fa-user-plus"></i> Hesap Oluştur', '/admin/user/create', 'primary') %>
+<%- getHeadTitleSection({
+    title: { label: 'Kullanıcı Hesapları', icon: 'fas fa-users', icon_class:'bg-success text-light' },
+    buttons: [ { label:'Hesap Oluştur', href:'/admin/user/create', icon:'fas fa-user-plus', color:'primary' } ]
+}) %>
 <div class="row">
     <div class="col-12">
         <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>

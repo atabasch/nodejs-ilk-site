@@ -19,8 +19,19 @@ resetMainDatas();
 
 
 // Admin panel başlangıç sayfası
-router.get('/', (request, response, next) => {
+router.get('/', async (request, response, next) => {
     resetMainDatas();
+    mainDatas['count_posts'] = 0;
+    mainDatas['count_media'] = 0;
+    mainDatas['count_users'] = 0;
+    mainDatas['count_comments'] = 0;
+    mainDatas['last_posts'] = [];
+    await aswDbQuery(db, "SELECT count(*) as count FROM asw_posts WHERE post_type='post' AND post_status='publish'").then(r => mainDatas['count_posts'] = r[0].count);
+    await aswDbQuery(db, "SELECT count(*) as count FROM asw_media").then(r => mainDatas['count_media'] = r[0].count);
+    await aswDbQuery(db, "SELECT count(*) as count FROM asw_users").then(r => mainDatas['count_users'] = r[0].count);
+    await aswDbQuery(db, "SELECT * FROM asw_posts WHERE post_type='post' ORDER BY post_id DESC LIMIT 10 ").then(r => mainDatas['last_posts'] = r);
+
+
     response.render('admin/index', mainDatas);
 });
 
