@@ -87,6 +87,18 @@ global.gdb = {
         update:   'contact_update'
     },
 
+    comment: {
+        table:    db_prefix+'comments',
+        id:       'comment_id',
+        author:   'comment_author',
+        post:     'comment_post',
+        content:  'comment_content',
+        datas:    'comment_datas',
+        parent:   'comment_parent',
+        status:   'comment_status',
+        create:   'comment_create'
+    },
+
 
 } // gdb global database
 

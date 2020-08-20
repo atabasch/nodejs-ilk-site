@@ -28,6 +28,7 @@ var adminRouterPage     = require('./routes/admin/Page');
 var adminRouterArticle  = require('./routes/admin/Article');
 var adminRouterMedia    = require('./routes/admin/Media');
 var adminRoutlerUser    = require('./routes/admin/User');
+var adminRouterComment  = require('./routes/admin/Comment');
 var adminRouterContact  = require('./routes/admin/Contact');
 
 // MIDDLEWARE IMPORT İŞLEMLERİ
@@ -83,6 +84,7 @@ app.use('/admin/page', adminRouterPage);
 app.use('/admin/article', adminRouterArticle);
 app.use('/admin/media', adminRouterMedia);
 app.use('/admin/user', adminRoutlerUser);
+app.use('/admin/comment', adminRouterComment);
 app.use('/admin/contact', adminRouterContact);
 
 

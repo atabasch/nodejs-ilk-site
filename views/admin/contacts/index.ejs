@@ -24,16 +24,18 @@
             <th width="180">Gönderen</th>
             <th width="90">Tür</th>
             <th width="180">Tarih</th>
+            <th width="20"></th>
         </tr>
     </thead>
         <% items.forEach((item, index) => { %>
         <% let onclickcontent = "window.location.href='/admin/contact/:id/detail'".replace(':id', item.contact_id) %>
-        <tr id="item-tr-<%= item.contact_id %>" class="<%= item.contact_status==0? 'font-weight-bold' : ''; %>" onclick="<%= onclickcontent %>" style="cursor:pointer">
-            <td><%= item.contact_id %></td>
-            <td><%= item.contact_status==2? '[Yanıtlandı] - ' : '' %><%= item.contact_title %></td>
-            <td><%= item.contact_author %></td>
-            <td><%= getContactType(item.contact_type) %></td>
-            <td><span><%= getDateString(item.contact_create) %></span></td>
+        <tr id="item-tr-<%= item.contact_id %>" class="<%= item.contact_status==0? 'font-weight-bold' : ''; %>" style="cursor:pointer">
+            <td onclick="<%= onclickcontent %>"><%= item.contact_id %></td>
+            <td onclick="<%= onclickcontent %>"><%= item.contact_status==2? '[Yanıtlandı] - ' : '' %><%= item.contact_title %></td>
+            <td onclick="<%= onclickcontent %>"><%= item.contact_author %></td>
+            <td onclick="<%= onclickcontent %>"><%= getContactType(item.contact_type) %></td>
+            <td onclick="<%= onclickcontent %>"><span><%= getDateString(item.contact_create) %></span></td>
+            <td><a class="text-danger" href="#" onclick="deleteSweet('<%= item.contact_title %>', '<%= item.contact_id %>', '/admin/contact/'+<%= item.contact_id %>+'/delete');"><i class="fas fa-trash-alt"></i></a></td>
         </tr>
         <% }); %>
     <tbody>

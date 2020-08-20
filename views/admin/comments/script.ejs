@@ -1,0 +1,27 @@
+<script>
+
+function showComment(id){
+    $('.short-comment[data-id='+id+']').addClass('d-none');
+    $('.long-comment[data-id='+id+']').removeClass('d-none');
+}
+
+function hideComment(id){
+    $('.short-comment[data-id='+id+']').removeClass('d-none');
+    $('.long-comment[data-id='+id+']').addClass('d-none');
+}
+
+function changeStatus(id, status){
+    $.ajax({
+        url:'/admin/comment/change-status',
+        type:'POST',
+        data: {id:id, status:status},
+        dataType: 'json'
+    }).done(response => {
+        if(response.status=='success'){
+            let mSelector = '.csBtn-'+response.id;
+            $(mSelector).toggleClass('d-none');
+            //$(mSelector+'.d-none').addClass('d-none');
+        }
+    });
+}
+</script>

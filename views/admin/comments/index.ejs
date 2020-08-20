@@ -1,0 +1,84 @@
+<%- include('../header.ejs'); %>
+<%- getHeadTitleSection({
+    title: { label: 'İçerik Yorumları', icon: 'fas fa-comments', icon_class:'bg-warning text-light' }
+}) %>
+<div class="row">
+    <div class="col-12">
+        <%- messages.error? getAlert(null, messages.error, 'danger') : ''; %>
+        <%- messages.success? getAlert(null, messages.success, 'success') : ''; %>
+    </div>
+
+
+<section class="col-12 p-0" id="app">
+
+
+
+
+<table class="table border table-hover table-striped resultListTable">
+
+
+
+
+    <thead>
+        <tr>
+            <th width="30">#</th>
+            <th width="10" class="pl-0 pr-0"></th>
+            <th>Yorum</th>
+            <th width="20"></th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <% items.forEach((item, index) => { %>
+        <tr id="item-tr-<%= item.comment_id %>">
+            <td><%= item.comment_id %></td>
+            <td class="pl-0 pr-0" style="font-size:1.2rem">
+                <button class="<%= item.comment_status==0? 'd-none' : '' %> csBtn-<%= item.comment_id %> text-success btn btn-sm btn-default" onclick="changeStatus(<%= item.comment_id %>, 0)"><i class="fas fa-eye"></i></button>
+                <button class="<%= item.comment_status==1? 'd-none' : '' %> csBtn-<%= item.comment_id %> text-danger btn btn-sm btn-default" onclick="changeStatus(<%= item.comment_id %>, 1)"><i class="fas fa-eye-slash"></i></button>
+            </td>
+            <td>
+                <strong><%= item.comment_author %></strong> - <small><%= getDateString(item.comment_create) %></small><br>
+                <% if(item.comment_content.length < 300){ %>
+                    <p><%= item.comment_content%></p>
+                <% }else{ %>
+                    <p class="short-comment" data-id="<%= item.comment_id %>">
+                        <%= item.comment_content.substring(0,300) %>...
+                        <br><span class="text-primary" style="cursor:pointer" onclick="showComment(<%= item.comment_id %>)">Görüntüle</span>
+                    </p>
+                    <p class="long-comment d-none" data-id="<%= item.comment_id %>">
+                        <%= item.comment_content %>
+                        <br><span class="text-primary" style="cursor:pointer" onclick="hideComment(<%= item.comment_id %>)">Gizle</span>
+                    </p>
+                <% } %>
+
+                <% if(item.comment_datas){ %>
+                    <ul class="list-group list-group-horizontal">
+                    <% let jsonDatas = JSON.parse(item.comment_datas); %>
+                    <% for( let keyword in jsonDatas){ %>
+                         <li class="list-group-item"><strong><%= keyword.charAt(0).toUpperCase()+keyword.slice(1) %>:</strong> <%= jsonDatas[keyword] %></li>
+                    <% } %>
+                    </ul>
+                <% } %>
+
+            </td>
+            <td><a class="text-danger" href="#" onclick="deleteSweet('<%= item.comment_content.substring(0,100) %> ile başlayan yorum', '<%= item.comment_id %>', '/admin/comment/'+<%= item.comment_id %>+'/delete');"><i class="fas fa-trash-alt"></i></a></td>
+        </tr>
+        <% }); %>
+    <tbody>
+
+    </tbody>
+
+
+
+
+</table>
+
+
+
+
+
+
+</section>
+</div>
+<%- include('../footer.ejs', {incFooterAfter: 'comments/script'}); %>

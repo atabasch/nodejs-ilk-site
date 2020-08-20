@@ -130,4 +130,43 @@ router.post('/:id/reply', (request, response) => {
 
 
 
+router.post('/:id/delete', (request, response) => {
+
+    let gid = request.params.id;
+    let pid = request.body.id;
+    let result = {
+        title:'Bir Hata Oluştu.',
+        message:'Beklenmedik bir hata oluştu lütfen daha sonra tekrar deneyin.',
+        status:'danger'
+    }
+
+    if(gid != pid){
+        response.json(result);
+    }else{
+
+        let sql = `DELETE FROM ${gdb.contact.table} WHERE ${gdb.contact.id}=? OR ${gdb.contact.parent}=?`
+        aswDbQuery(db, sql, [pid, pid])
+        .then(results => {
+
+            result = {
+                id:pid,
+                title:'Veri Silindi.',
+                message:'İletişim mesahı ve ona bağlı tüm cevaplar başarılı bir şekilde silindi..',
+                status:'success'
+            }
+            response.json(result);
+
+        })
+        .catch(err => {
+            response.json(result);
+        });
+
+    }
+});
+
+
+
+
+
+
 module.exports = router;
