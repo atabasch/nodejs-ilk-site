@@ -70,3 +70,14 @@ CREATE TABLE IF NOT EXISTS `asw_contacts` (
   `contact_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`contact_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+CREATE TABLE IF NOT EXISTS `asw_comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `comment_post` int(11) NOT NULL,
+  `comment_author` varchar(150) NOT NULL,
+  `comment_content` text NOT NULL,
+  `comment_datas` text,
+  `comment_parent` int(11) NOT NULL DEFAULT '0',
+  `comment_status` tinyint(4) NOT NULL DEFAULT '1',
+  `comment_create` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`comment_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
